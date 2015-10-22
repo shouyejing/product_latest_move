@@ -7,7 +7,10 @@ class StockMove(models.Model):
     @api.one
     def action_done(self):
         super(StockMove, self).action_done()
+        self.update_product_latest_move()
 
+    @api.one
+    def update_product_latest_move(self):
         source_loc_out_rec = self.product_id.stock_move_record_ids.filtered(
             lambda r: r.location_id == self.location_id and r.type == "out")
         if source_loc_out_rec:
@@ -20,7 +23,6 @@ class StockMove(models.Model):
             vals["location_id"] = self.location_id.id
             vals["datetime"] = self.date
             self.env["product_latest_move.stock_move_record"].create(vals)
-
         dest_loc_in_rec = self.product_id.stock_move_record_ids.filtered(
             lambda r: r.location_id == self.location_dest_id and r.type == "in")
         if dest_loc_in_rec:
