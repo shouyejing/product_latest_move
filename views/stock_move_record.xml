@@ -1,0 +1,35 @@
+<openerp>
+    <data>
+        <record id="move_record_tree" model="ir.ui.view">
+            <field name="name">move_record_tree</field>
+            <field name="model">product_latest_move.stock_move_record</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="product_id"/>
+                    <field name="location_id"/>
+                    <field name="datetime"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_move_record_list" model="ir.actions.act_window">
+            <field name="name">action_move_record_list</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product_latest_move.stock_move_record</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="UNIQUE_ID_categ" name="Latest move record" parent="stock.menu_traceability"
+                  action="action_move_record_list"/>
+    </data>
+</openerp>
